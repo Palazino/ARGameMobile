@@ -13,27 +13,39 @@ public class AppInputManager : MonoBehaviour
     {
         m_raycastManager = GetComponent<ARRaycastManager>();
     }
+
     void Start()
     {
         m_camera = Camera.main;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if  ((Input.touchCount == 0)) return;
+        if (Input.touchCount == 0) return;
 
         Touch currentFinger = Input.GetTouch(0);
         var screenPosition = currentFinger.position;
-        var ray = m_camera.ScreenPointToRay(screenPosition);
-        var raycastHits = new List<ARRaycastHit>();
 
-        if (m_raycastManager.Raycast(ray, raycastHits, trackableTypes: UnityEngine.XR.ARSubsystems.TrackableType.Planes))
+        // Vérification du toucher pour changer la couleur
+        var ray = m_camera.ScreenPointToRay(screenPosition);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit))
+        {
+            // Si l'objet touché a le script ChangeColorOnTap, on ne fait rien d'autre
+            if (hit.transform.GetComponent<ChangeColorOnTap>() != null)
+            {
+                return;
+            }
+        }
+
+        // Sinon, on effectue un raycast AR pour instancier un nouveau cube
+        var raycastHits = new List<ARRaycastHit>();
+        if (m_raycastManager.Raycast(screenPosition, raycastHits, UnityEngine.XR.ARSubsystems.TrackableType.Planes))
         {
             ARRaycastHit firstHit = raycastHits[0];
             Pose hitPose = firstHit.pose;
             Vector3 spawnPosition = hitPose.position;
-            Instantiate(m_prefab,spawnPosition, Quaternion.identity);
+            Instantiate(m_prefab, spawnPosition, Quaternion.identity);
         }
     }
 }
