@@ -26,19 +26,20 @@ public class AppInputManager : MonoBehaviour
         Touch currentFinger = Input.GetTouch(0);
         var screenPosition = currentFinger.position;
 
-        // Vérification du toucher pour changer la couleur
+        // Vérifier si l'objet touché a un script spécifique
         var ray = m_camera.ScreenPointToRay(screenPosition);
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit))
         {
-            // Si l'objet touché a le script ChangeColorOnTap, on ne fait rien d'autre
-            if (hit.transform.GetComponent<ChangeColorOnTap>() != null)
+            GhostController ghost = hit.transform.GetComponent<GhostController>();
+            if (ghost != null)
             {
-                return;
+                ghost.TakeDamage(10); // Appliquer des dégâts au fantôme
+                return; // Ne pas créer un nouvel objet si on touche un objet existant
             }
         }
 
-        // Sinon, on effectue un raycast AR pour instancier un nouveau cube
+        // Raycast AR pour instancier un nouvel objet
         var raycastHits = new List<ARRaycastHit>();
         if (m_raycastManager.Raycast(screenPosition, raycastHits, UnityEngine.XR.ARSubsystems.TrackableType.Planes))
         {
