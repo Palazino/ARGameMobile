@@ -17,11 +17,13 @@ public class GhostController : MonoBehaviour
     {
         audioSource = GetComponent<AudioSource>();
         initialScale = transform.localScale;
-        FaceCamera(); // Tourner vers la caméra lors de l'apparition
     }
 
     void Update()
     {
+        // Tourner constamment vers la caméra
+        FaceCamera();
+
         // Avancer vers la caméra
         MoveTowardsCamera();
 
@@ -111,7 +113,7 @@ public class GhostController : MonoBehaviour
 
     void FaceCamera()
     {
-        // Tourner l'objet vers la caméra principale
+        // Tourner l'objet pour toujours faire face à la caméra principale
         Vector3 directionToCamera = Camera.main.transform.position - transform.position;
         directionToCamera.y = 0; // Garder la rotation seulement sur l'axe Y
         transform.rotation = Quaternion.LookRotation(directionToCamera);
