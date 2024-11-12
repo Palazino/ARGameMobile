@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class PlayerStats : MonoBehaviour
+public class PlayerStat : MonoBehaviour
 {
     public int currentXP = 0;
     public int currentLevel = 1;
@@ -22,7 +22,6 @@ public class PlayerStats : MonoBehaviour
     public void AddXP(int amount)
     {
         currentXP += amount;
-        Debug.Log("XP actuel : " + currentXP);
         if (currentXP >= xpToNextLevel)
         {
             LevelUp();
@@ -50,7 +49,6 @@ public class PlayerStats : MonoBehaviour
         if (xpSlider != null)
         {
             xpSlider.value = (float)currentXP / xpToNextLevel;
-            Debug.Log("XP Slider mis à jour : " + xpSlider.value);
         }
     }
 

@@ -167,7 +167,7 @@ public class GhostController : MonoBehaviour
 
     void AddXPToPlayer()
     {
-        PlayerStats playerStats = FindObjectOfType<PlayerStats>();
+        PlayerStat playerStats = FindObjectOfType<PlayerStat>();
         if (playerStats != null)
         {
             playerStats.AddXP(xpValue);
