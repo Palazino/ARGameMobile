@@ -287,6 +287,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 639622970}
+  startButton: {fileID: 55306079}
   sceneToLoad: 03_ARStage_1
   delay: 1
 --- !u!4 &639622969
