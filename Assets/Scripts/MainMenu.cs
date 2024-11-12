@@ -5,6 +5,6 @@ public class MainMenu : MonoBehaviour
 {
     public void StartGame()
     {
-        SceneManager.LoadScene("02_ARSelectGame");
+        SceneManager.LoadScene("03_ARStage_1");
     }
 }
