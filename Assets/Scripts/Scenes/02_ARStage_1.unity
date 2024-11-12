@@ -157,7 +157,7 @@ MonoBehaviour:
   coins: 0
   xpSlider: {fileID: 1571472441}
   levelText: {fileID: 2121544011}
-  coinText: {fileID: 0}
+  coinText: {fileID: 1090002045}
 --- !u!4 &6364414
 Transform:
   m_ObjectHideFlags: 0
@@ -963,8 +963,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4281150975
+  m_fontColor: {r: 1, g: 0.17527229, b: 0.17527229, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -2380,8 +2380,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4294105623
+  m_fontColor: {r: 0.09114274, g: 0.8535239, b: 0.94716984, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

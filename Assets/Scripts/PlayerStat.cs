@@ -22,6 +22,7 @@ public class PlayerStats : MonoBehaviour
     public void AddXP(int amount)
     {
         currentXP += amount;
+        Debug.Log("XP actuel : " + currentXP);
         if (currentXP >= xpToNextLevel)
         {
             LevelUp();
@@ -46,16 +47,26 @@ public class PlayerStats : MonoBehaviour
 
     void UpdateXPSlider()
     {
-        xpSlider.value = (float)currentXP / xpToNextLevel;
+        if (xpSlider != null)
+        {
+            xpSlider.value = (float)currentXP / xpToNextLevel;
+            Debug.Log("XP Slider mis à jour : " + xpSlider.value);
+        }
     }
 
     void UpdateLevelText()
     {
-        levelText.text = "Level " + currentLevel;
+        if (levelText != null)
+        {
+            levelText.text = "Level " + currentLevel;
+        }
     }
 
     void UpdateCoinText()
     {
-        coinText.text = "Coins: " + coins;
+        if (coinText != null)
+        {
+            coinText.text = "Coins: " + coins;
+        }
     }
 }

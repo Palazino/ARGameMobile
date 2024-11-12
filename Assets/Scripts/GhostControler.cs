@@ -10,6 +10,7 @@ public class GhostController : MonoBehaviour
     private AudioSource audioSource;
     private Vector3 initialScale;
     private bool isTakingDamage = false;
+    private bool isDefeated = false; // Indique si le fantôme a déjà été vaincu
     private float moveSpeed = 0.5f; // Vitesse de déplacement vers la caméra
     private float shrinkDuration = 2.0f; // Durée du rétrécissement en secondes
 
@@ -92,8 +93,10 @@ public class GhostController : MonoBehaviour
             health -= damage;
             StartCoroutine(DamageEffects());
 
-            if (health <= 0)
+            if (health <= 0 && !isDefeated)
             {
+                isDefeated = true; // Marquer le fantôme comme vaincu
+                AddXPToPlayer(); // Ajouter l'XP et les pièces
                 StartCoroutine(Disappear());
             }
         }
@@ -168,6 +171,7 @@ public class GhostController : MonoBehaviour
         if (playerStats != null)
         {
             playerStats.AddXP(xpValue);
+            playerStats.AddCoins(1);
         }
     }
 
