@@ -931,3 +931,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
+  xpValue: 50
+  damageDistance: 1
+  damageAmount: 10
+  damageInterval: 1

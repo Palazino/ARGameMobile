@@ -13,10 +13,18 @@ public class GhostController : MonoBehaviour
     private float moveSpeed = 0.5f; // Vitesse de déplacement vers la caméra
     private float shrinkDuration = 2.0f; // Durée du rétrécissement en secondes
 
+    public float damageDistance = 1.0f; // Distance à partir de laquelle le joueur prend des dégâts
+    public int damageAmount = 10; // Dégâts infligés au joueur
+    public float damageInterval = 1.0f; // Intervalle de temps entre chaque dégât infligé au joueur
+    private bool isAtDamageDistance = false; // Indique si le fantôme est à la distance de dégâts
+
+    private PlayerHealth playerHealth; // Référence au script de la santé du joueur
+
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
         initialScale = transform.localScale;
+        playerHealth = FindObjectOfType<PlayerHealth>(); // Trouver le script PlayerHealth
     }
 
     void Update()
@@ -24,8 +32,12 @@ public class GhostController : MonoBehaviour
         // Tourner constamment vers la caméra
         FaceCamera();
 
-        // Avancer vers la caméra
-        MoveTowardsCamera();
+        // Avancer vers la caméra ou vérifier la distance
+        if (!isAtDamageDistance)
+        {
+            MoveTowardsCamera();
+            CheckPlayerDistance();
+        }
 
         if (isRotating)
         {
@@ -40,6 +52,36 @@ public class GhostController : MonoBehaviour
         {
             Vector3 directionToCamera = (Camera.main.transform.position - transform.position).normalized;
             transform.position += directionToCamera * moveSpeed * Time.deltaTime;
+        }
+    }
+
+    void CheckPlayerDistance()
+    {
+        if (playerHealth != null)
+        {
+            float distanceToPlayer = Vector3.Distance(transform.position, Camera.main.transform.position);
+            if (distanceToPlayer <= damageDistance)
+            {
+                if (!isAtDamageDistance)
+                {
+                    isAtDamageDistance = true;
+                    StartCoroutine(DealDamageOverTime());
+                }
+            }
+            else
+            {
+                isAtDamageDistance = false;
+                StopCoroutine(DealDamageOverTime());
+            }
+        }
+    }
+
+    IEnumerator DealDamageOverTime()
+    {
+        while (isAtDamageDistance)
+        {
+            playerHealth.TakeDamage(damageAmount);
+            yield return new WaitForSeconds(damageInterval);
         }
     }
 
@@ -87,6 +129,7 @@ public class GhostController : MonoBehaviour
         }
 
         isTakingDamage = false;
+        isAtDamageDistance = false; // Recommencer à se déplacer après avoir été repoussé
     }
 
     IEnumerator Disappear()
@@ -125,6 +168,9 @@ public class GhostController : MonoBehaviour
         if (playerStats != null)
         {
             playerStats.AddXP(xpValue);
+            
+            
         }
     }
 }
+    
