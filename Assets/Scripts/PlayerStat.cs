@@ -7,13 +7,16 @@ public class PlayerStats : MonoBehaviour
     public int currentXP = 0;
     public int currentLevel = 1;
     public int xpToNextLevel = 100;
+    public int coins = 0; // Nombre de pièces du joueur
     public Slider xpSlider; // Barre de progression pour l'XP
     public TextMeshProUGUI levelText; // Texte pour afficher le niveau
+    public TextMeshProUGUI coinText; // Texte pour afficher le nombre de pièces
 
     void Start()
     {
         UpdateXPSlider();
         UpdateLevelText(); // Mettre à jour le texte du niveau au démarrage
+        UpdateCoinText(); // Mettre à jour le texte des pièces au démarrage
     }
 
     public void AddXP(int amount)
@@ -35,6 +38,12 @@ public class PlayerStats : MonoBehaviour
         UpdateLevelText(); // Mettre à jour le texte du niveau lors de la montée de niveau
     }
 
+    public void AddCoins(int amount)
+    {
+        coins += amount;
+        UpdateCoinText();
+    }
+
     void UpdateXPSlider()
     {
         xpSlider.value = (float)currentXP / xpToNextLevel;
@@ -43,5 +52,10 @@ public class PlayerStats : MonoBehaviour
     void UpdateLevelText()
     {
         levelText.text = "Level " + currentLevel;
+    }
+
+    void UpdateCoinText()
+    {
+        coinText.text = "Coins: " + coins;
     }
 }

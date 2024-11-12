@@ -7,7 +7,6 @@ public class AppInputManager : MonoBehaviour
 {
     private Camera m_camera;
     [SerializeField] private ARRaycastManager m_raycastManager;
-    [SerializeField] GameObject m_prefab;
 
     private void Awake()
     {
@@ -35,18 +34,7 @@ public class AppInputManager : MonoBehaviour
             if (ghost != null)
             {
                 ghost.TakeDamage(10); // Appliquer des dégâts au fantôme
-                return; // Ne pas créer un nouvel objet si on touche un objet existant
             }
-        }
-
-        // Raycast AR pour instancier un nouvel objet
-        var raycastHits = new List<ARRaycastHit>();
-        if (m_raycastManager.Raycast(screenPosition, raycastHits, UnityEngine.XR.ARSubsystems.TrackableType.Planes))
-        {
-            ARRaycastHit firstHit = raycastHits[0];
-            Pose hitPose = firstHit.pose;
-            Vector3 spawnPosition = hitPose.position;
-            Instantiate(m_prefab, spawnPosition, Quaternion.identity);
         }
     }
 }

@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/ARScene.unity
+    path: Assets/Scripts/Scenes/02_ARStage_1.unity
     guid: 13b612bb7dc516a4eab916ba8197aeef
   m_configObjects:
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 5d7d2b63276e9314cbd225a3e46f4709,

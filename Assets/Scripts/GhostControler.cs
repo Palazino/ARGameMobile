@@ -150,7 +150,7 @@ public class GhostController : MonoBehaviour
             yield return null;
         }
 
-        AddXPToPlayer();
+        RemoveGhostFromList(); // Supprimer le fantôme de la liste active
         Destroy(gameObject);
     }
 
@@ -168,9 +168,15 @@ public class GhostController : MonoBehaviour
         if (playerStats != null)
         {
             playerStats.AddXP(xpValue);
-            
-            
+        }
+    }
+
+    void RemoveGhostFromList()
+    {
+        GhostSpawner spawner = FindObjectOfType<GhostSpawner>();
+        if (spawner != null)
+        {
+            spawner.RemoveGhost(this.gameObject);
         }
     }
 }
-    
